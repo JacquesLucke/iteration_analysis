@@ -26,3 +26,6 @@ void foreach_element__pointer_array__with_prefetching(Element **begin,
 void foreach_element__struct_array(Element *begin,
                                    int size,
                                    Callback callback);
+void foreach_element__struct_array__backwards(Element *begin,
+                                              int size,
+                                              Callback callback);

@@ -146,6 +146,11 @@ void run_benchmarks(std::vector<Element> &elements,
             SCOPED_TIMER("Struct Array");
             foreach_element__struct_array(elements.data(), size, callback);
         }
+        {
+            SCOPED_TIMER("Struct Array Zero Compare");
+            foreach_element__struct_array__backwards(
+                elements.data(), size, callback);
+        }
     }
 
     std::cout << "\n\n";

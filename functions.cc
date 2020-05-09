@@ -1,5 +1,7 @@
 #include "functions.hh"
 
+#include <cassert>
+#include <cstdint>
 #include <immintrin.h>
 
 void foreach_element__single_linked_list(Element *first, Callback callback)
@@ -69,6 +71,15 @@ void foreach_element__pointer_array__with_prefetching(Element **begin,
 void foreach_element__struct_array(Element *begin, int size, Callback callback)
 {
     for (int i = 0; i < size; i++) {
+        callback(begin[i]);
+    }
+}
+
+void foreach_element__struct_array__backwards(Element *begin,
+                                              int size,
+                                              Callback callback)
+{
+    for (int i = size; i--;) {
         callback(begin[i]);
     }
 }
