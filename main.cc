@@ -40,6 +40,11 @@ class Benchmark {
         }
     }
 
+    int amount()
+    {
+        return m_results.size();
+    }
+
     class Timer {
       private:
         Benchmark &m_benchmark;
@@ -74,19 +79,21 @@ void run_benchmarks(std::vector<Element> &elements,
     int size = elements.size();
     auto callback = [](Element &element) { element.value++; };
 
-    for (int i = 0; i < 3; i++) {
+    int iterations = 3;
+
+    for (int i = 0; i < iterations; i++) {
         std::cout << "Iteration: " << (i + 1) << "\n";
-        update_linked_list_pointers(randomized_element_pointers);
+        update_linked_list_pointers(sorted_element_pointers);
         {
             SCOPED_TIMER("Single Linked List");
-            foreach_element__single_linked_list(randomized_element_pointers[0],
+            foreach_element__single_linked_list(sorted_element_pointers[0],
                                                 callback);
         }
         {
             SCOPED_TIMER("Double Linked List");
             foreach_element__double_linked_list__unordered(
-                randomized_element_pointers[0],
-                randomized_element_pointers[size - 1],
+                sorted_element_pointers[0],
+                sorted_element_pointers[size - 1],
                 callback);
         }
         {
@@ -106,6 +113,13 @@ void run_benchmarks(std::vector<Element> &elements,
     }
 
     benchmark.print();
+
+    int expected_value = iterations * benchmark.amount();
+    for (Element &element : elements) {
+        if (element.value != expected_value) {
+            std::cout << "Error!\n";
+        }
+    }
 }
 
 int main(int argc, char const *argv[])
