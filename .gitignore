@@ -1,4 +1,4 @@
 .vscode
 a.out
-main.exe
-main.obj
+*.exe
+*.obj
