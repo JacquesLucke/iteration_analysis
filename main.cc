@@ -1,5 +1,6 @@
 #include <algorithm>
 #include <chrono>
+#include <iomanip>
 #include <iostream>
 #include <random>
 #include <unordered_map>
@@ -34,11 +35,22 @@ class Benchmark {
 
     void print()
     {
+        std::vector<std::pair<long long, std::string>> averages;
+
         for (auto &result : m_results) {
-            std::cout << result.first << ":\n";
+            long long sum = 0;
             for (std::chrono::nanoseconds measurement : result.second) {
-                std::cout << "  " << (measurement.count() / 1.0e6) << " ms\n";
+                sum += measurement.count();
             }
+            averages.emplace_back(
+                std::make_pair(sum / result.second.size(), result.first));
+        }
+        std::sort(averages.begin(), averages.end());
+
+        for (auto result : averages) {
+            std::cout << std::left << std::setw(50) << result.second
+                      << std::setprecision(3) << (result.first / 1.0e6)
+                      << " ms\n";
         }
     }
 
@@ -81,9 +93,10 @@ void run_benchmarks(std::vector<Element> &elements,
     int size = elements.size();
     auto callback = [](Element &element) { element.value++; };
 
-    std::vector<int> prefetch_distances = {0, 1, 2, 4, 8, 16, 32, 64};
+    std::vector<int> prefetch_distances = {
+        0, 1, 2, 4, 8, 12, 16, 20, 24, 28, 32, 64};
 
-    int iterations = 3;
+    int iterations = 10;
 
     for (int i = 0; i < iterations; i++) {
         std::cout << "Iteration: " << (i + 1) << "\n";
@@ -135,7 +148,9 @@ void run_benchmarks(std::vector<Element> &elements,
         }
     }
 
+    std::cout << "\n\n";
     benchmark.print();
+    std::cout << "\n\n";
 
     int expected_value = iterations * benchmark.amount();
     for (Element &element : elements) {
