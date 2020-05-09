@@ -50,7 +50,7 @@ class Benchmark {
 
         for (auto result : averages) {
             std::cout << std::left << std::setw(50) << result.second
-                      << std::setprecision(3) << (result.first / 1.0e6)
+                      << std::setprecision(5) << (result.first / 1.0e6)
                       << " ms\n";
         }
     }
