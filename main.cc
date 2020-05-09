@@ -100,7 +100,7 @@ void run_benchmarks(std::vector<Element> &elements,
 #define SCOPED_TIMER(name) Benchmark::Timer timer(benchmark, (name))
 
     int size = elements.size();
-    auto callback = [](Element &element) { element.value++; };
+    auto callback = [](Element *element) { element->value++; };
 
     std::vector<int> prefetch_distances = {
         0, 1, 2, 4, 8, 12, 16, 20, 24, 28, 32, 64};
@@ -108,7 +108,7 @@ void run_benchmarks(std::vector<Element> &elements,
     int iterations = 10;
 
     for (int i = 0; i < iterations; i++) {
-        std::cout << "Iteration: " << (i + 1) << "\n";
+        std::cout << "Iteration: " << (i + 1) << "/" << iterations << "\n";
         {
             update_linked_list_pointers(sorted_element_pointers, 0);
             SCOPED_TIMER("Sorted Single Linked List");

@@ -12,7 +12,9 @@ struct alignas(64) Element {
 static_assert(sizeof(Element) == 64, "");
 static_assert(alignof(Element) == 64, "");
 
-using Callback = void (*)(Element &element);
+using Callback = void (*)(Element *element);
+
+extern "C" {
 
 void foreach_element__single_linked_list(Element *first, Callback callback);
 void foreach_element__single_linked_list__with_prefetching(Element *first,
@@ -35,3 +37,4 @@ void foreach_element__struct_array(Element *begin,
 void foreach_element__struct_array__backwards(Element *begin,
                                               int size,
                                               Callback callback);
+}
