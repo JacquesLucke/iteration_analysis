@@ -60,7 +60,7 @@ void foreach_element__pointer_array__with_prefetching(Element **begin,
 {
     for (int i = 0; i < size - prefetch_distance; i++) {
         callback(*begin[i]);
-        _mm_prefetch(begin[i + prefetch_distance], _MM_HINT_T0);
+        _mm_prefetch((const char *)begin[i + prefetch_distance], _MM_HINT_T0);
     }
 
     for (int i = size - prefetch_distance; i < size; i++) {
