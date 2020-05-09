@@ -21,6 +21,7 @@ void foreach_element__pointer_array(Element **begin,
                                     Callback callback);
 void foreach_element__pointer_array__with_prefetching(Element **begin,
                                                       int size,
+                                                      int prefetch_distance,
                                                       Callback callback);
 void foreach_element__struct_array(Element *begin,
                                    int size,

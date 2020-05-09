@@ -53,15 +53,15 @@ void foreach_element__pointer_array(Element **begin,
 
 void foreach_element__pointer_array__with_prefetching(Element **begin,
                                                       int size,
+                                                      int prefetch_distance,
                                                       Callback callback)
 {
-    int distance = 16;
-    for (int i = 0; i < size - distance; i++) {
+    for (int i = 0; i < size - prefetch_distance; i++) {
         callback(*begin[i]);
-        _mm_prefetch(begin[i + distance], _MM_HINT_T0);
+        _mm_prefetch(begin[i + prefetch_distance], _MM_HINT_T0);
     }
 
-    for (int i = size - distance; i < size; i++) {
+    for (int i = size - prefetch_distance; i < size; i++) {
         callback(*begin[i]);
     }
 }

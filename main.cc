@@ -15,8 +15,10 @@ static void update_linked_list_pointers(std::vector<Element *> &elements)
         elements[i]->prev = elements[i - 1];
     }
 
+    elements[0]->prev = nullptr;
     elements[0]->next = elements[1];
     elements[size - 1]->prev = elements[size - 2];
+    elements[size - 1]->next = nullptr;
 }
 
 class Benchmark {
@@ -79,21 +81,36 @@ void run_benchmarks(std::vector<Element> &elements,
     int size = elements.size();
     auto callback = [](Element &element) { element.value++; };
 
+    std::vector<int> prefetch_distances = {0, 1, 2, 4, 8, 16, 32, 64};
+
     int iterations = 3;
 
     for (int i = 0; i < iterations; i++) {
         std::cout << "Iteration: " << (i + 1) << "\n";
         update_linked_list_pointers(sorted_element_pointers);
         {
-            SCOPED_TIMER("Single Linked List");
+            SCOPED_TIMER("Sorted Single Linked List");
             foreach_element__single_linked_list(sorted_element_pointers[0],
                                                 callback);
         }
         {
-            SCOPED_TIMER("Double Linked List");
+            SCOPED_TIMER("Sorted Double Linked List");
             foreach_element__double_linked_list__unordered(
                 sorted_element_pointers[0],
                 sorted_element_pointers[size - 1],
+                callback);
+        }
+        update_linked_list_pointers(randomized_element_pointers);
+        {
+            SCOPED_TIMER("Randomized Single Linked List");
+            foreach_element__single_linked_list(randomized_element_pointers[0],
+                                                callback);
+        }
+        {
+            SCOPED_TIMER("Randomized Double Linked List");
+            foreach_element__double_linked_list__unordered(
+                randomized_element_pointers[0],
+                randomized_element_pointers[size - 1],
                 callback);
         }
         {
@@ -102,9 +119,15 @@ void run_benchmarks(std::vector<Element> &elements,
                 randomized_element_pointers.data(), size, callback);
         }
         {
-            SCOPED_TIMER("Pointer Array with Prefetching");
-            foreach_element__pointer_array__with_prefetching(
-                randomized_element_pointers.data(), size, callback);
+            for (int prefetch_distance : prefetch_distances) {
+                SCOPED_TIMER("Pointer Array with Prefetching (distance=" +
+                             std::to_string(prefetch_distance) + ")");
+                foreach_element__pointer_array__with_prefetching(
+                    randomized_element_pointers.data(),
+                    size,
+                    prefetch_distance,
+                    callback);
+            }
         }
         {
             SCOPED_TIMER("Struct Array");
