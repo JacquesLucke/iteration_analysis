@@ -49,7 +49,7 @@ class Benchmark {
         std::sort(averages.begin(), averages.end());
 
         for (auto result : averages) {
-            std::cout << std::left << std::setw(50) << result.second
+            std::cout << std::left << std::setw(70) << result.second
                       << std::setprecision(5) << (result.first / 1.0e6)
                       << " ms\n";
         }
@@ -128,16 +128,34 @@ void run_benchmarks(std::vector<Element> &elements,
                 callback);
         }
         {
-            SCOPED_TIMER("Pointer Array");
+            SCOPED_TIMER("Randomized Pointer Array");
             foreach_element__pointer_array(
                 randomized_element_pointers.data(), size, callback);
         }
         {
+            SCOPED_TIMER("Sorted Pointer Array");
+            foreach_element__pointer_array(
+                sorted_element_pointers.data(), size, callback);
+        }
+        {
             for (int prefetch_distance : prefetch_distances) {
-                SCOPED_TIMER("Pointer Array with Prefetching (distance=" +
-                             std::to_string(prefetch_distance) + ")");
+                SCOPED_TIMER(
+                    "Randomized Pointer Array with Prefetching (distance=" +
+                    std::to_string(prefetch_distance) + ")");
                 foreach_element__pointer_array__with_prefetching(
                     randomized_element_pointers.data(),
+                    size,
+                    prefetch_distance,
+                    callback);
+            }
+        }
+        {
+            for (int prefetch_distance : prefetch_distances) {
+                SCOPED_TIMER(
+                    "Sorted Pointer Array with Prefetching (distance=" +
+                    std::to_string(prefetch_distance) + ")");
+                foreach_element__pointer_array__with_prefetching(
+                    sorted_element_pointers.data(),
                     size,
                     prefetch_distance,
                     callback);
