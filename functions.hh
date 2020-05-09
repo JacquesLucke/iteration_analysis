@@ -19,6 +19,9 @@ void foreach_element__double_linked_list__unordered(Element *first,
 void foreach_element__pointer_array(Element **begin,
                                     int size,
                                     Callback callback);
+void foreach_element__pointer_array__with_prefetching(Element **begin,
+                                                      int size,
+                                                      Callback callback);
 void foreach_element__struct_array(Element *begin,
                                    int size,
                                    Callback callback);

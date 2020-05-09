@@ -33,7 +33,7 @@ class Benchmark {
     void print()
     {
         for (auto &result : m_results) {
-            std::cout << result.first << "\n";
+            std::cout << result.first << ":\n";
             for (std::chrono::nanoseconds measurement : result.second) {
                 std::cout << "  " << (measurement.count() / 1.0e6) << " ms\n";
             }
@@ -92,6 +92,11 @@ void run_benchmarks(std::vector<Element> &elements,
         {
             SCOPED_TIMER("Pointer Array");
             foreach_element__pointer_array(
+                randomized_element_pointers.data(), size, callback);
+        }
+        {
+            SCOPED_TIMER("Pointer Array with Prefetching");
+            foreach_element__pointer_array__with_prefetching(
                 randomized_element_pointers.data(), size, callback);
         }
         {

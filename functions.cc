@@ -51,6 +51,21 @@ void foreach_element__pointer_array(Element **begin,
     }
 }
 
+void foreach_element__pointer_array__with_prefetching(Element **begin,
+                                                      int size,
+                                                      Callback callback)
+{
+    int distance = 16;
+    for (int i = 0; i < size - distance; i++) {
+        callback(*begin[i]);
+        _mm_prefetch(begin[i + distance], _MM_HINT_T0);
+    }
+
+    for (int i = size - distance; i < size; i++) {
+        callback(*begin[i]);
+    }
+}
+
 void foreach_element__struct_array(Element *begin, int size, Callback callback)
 {
     for (int i = 0; i < size; i++) {
