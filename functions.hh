@@ -24,6 +24,13 @@ void foreach_element__double_linked_list__unordered(Element *first,
                                                     Callback callback);
 void foreach_element__double_linked_list__unordered__with_prefetching(
     Element *first, Element *last, Callback callback);
+void foreach_element__double_linked_list__ordered__std_stack(
+    Element *first, Element *last, Callback callback);
+void foreach_element__double_linked_list__ordered__std_vector(
+    Element *first, Element *last, Callback callback);
+void foreach_element__double_linked_list__ordered__custom(Element *first,
+                                                          Element *last,
+                                                          Callback callback);
 void foreach_element__pointer_array(Element **begin,
                                     int size,
                                     Callback callback);
@@ -37,4 +44,9 @@ void foreach_element__struct_array(Element *begin,
 void foreach_element__struct_array__backwards(Element *begin,
                                               int size,
                                               Callback callback);
+void foreach_element__struct_array__chunked(Element *begin,
+                                            int size,
+                                            Callback callback);
+
+void clobber_cache();
 }
