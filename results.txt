@@ -1,0 +1,49 @@
+My Laptop, Clang
+
+Struct Array                                                          6.7271 ms
+Struct Array Zero Compare                                             6.7711 ms
+Struct Array Chunked                                                  6.7949 ms
+Sorted Double Linked List                                             7.0244 ms
+Sorted Pointer Array with Prefetching (distance=0)                    7.2279 ms
+Sorted Pointer Array with Prefetching (distance=32)                   7.2521 ms
+Sorted Pointer Array with Prefetching (distance=8)                    7.2693 ms
+Sorted Pointer Array with Prefetching (distance=16)                   7.2715 ms
+Sorted Pointer Array                                                  7.3039 ms
+Sorted Pointer Array with Prefetching (distance=64)                   7.3042 ms
+Sorted Pointer Array with Prefetching (distance=4)                    7.3381 ms
+Sorted Pointer Array with Prefetching (distance=1)                    7.3488 ms
+Sorted Pointer Array with Prefetching (distance=2)                    7.3734 ms
+Sorted Single Linked List                                             7.6391 ms
+Sorted Double Linked List - custom                                    9.4917 ms
+Sorted Double Linked List - std::stack                                9.5819 ms
+Sorted Double Linked List - std::vector                               9.9104 ms
+Randomized Single Linked List with Prefetching (distance=32)          12.392 ms
+Randomized Double Linked List with Prefetching (distance=16)          12.459 ms
+Randomized Double Linked List with Prefetching (distance=32)          12.465 ms
+Randomized Single Linked List with Prefetching (distance=64)          12.573 ms
+Randomized Double Linked List with Prefetching (distance=64)          12.958 ms
+Randomized Pointer Array with Prefetching (distance=16)               13.41 ms
+Randomized Pointer Array with Prefetching (distance=32)               13.416 ms
+Randomized Pointer Array with Prefetching (distance=64)               13.486 ms
+Randomized Pointer Array with Prefetching (distance=8)                13.531 ms
+Randomized Pointer Array with Prefetching (distance=4)                14.047 ms
+Randomized Double Linked List with Prefetching (distance=8)           14.382 ms
+Randomized Pointer Array with Prefetching (distance=2)                14.624 ms
+Randomized Single Linked List with Prefetching (distance=16)          14.63 ms
+Randomized Pointer Array with Prefetching (distance=1)                15.3 ms
+Randomized Double Linked List with Prefetching (distance=4)           16.989 ms
+Randomized Pointer Array with Prefetching (distance=0)                17.217 ms
+Randomized Single Linked List with Prefetching (distance=8)           17.356 ms
+Randomized Pointer Array                                              17.755 ms
+Randomized Double Linked List with Prefetching (distance=2)           26.354 ms
+Randomized Single Linked List with Prefetching (distance=4)           27.289 ms
+Randomized Double Linked List with Prefetching (distance=1)           44.238 ms
+Randomized Double Linked List                                         47.183 ms
+Randomized Single Linked List with Prefetching (distance=2)           47.538 ms
+Randomized Double Linked List with Prefetching (distance=0)           47.645 ms
+Randomized Double Linked List - custom                                53.791 ms
+Randomized Double Linked List - std::vector                           54.768 ms
+Randomized Double Linked List - std::stack                            55.095 ms
+Randomized Single Linked List with Prefetching (distance=1)           84.194 ms
+Randomized Single Linked List with Prefetching (distance=0)           87.715 ms
+Randomized Single Linked List
